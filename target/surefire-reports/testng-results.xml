@@ -2,10 +2,10 @@
 <testng-results skipped="0" failed="0" total="0" passed="0">
   <reporter-output>
   </reporter-output>
-  <suite name="com.bootcamp.Tester" duration-ms="3" started-at="2017-11-17T23:39:42Z" finished-at="2017-11-17T23:39:42Z">
+  <suite name="com.bootcamp.Tester" duration-ms="12" started-at="2017-11-18T14:10:56Z" finished-at="2017-11-18T14:10:56Z">
     <groups>
     </groups>
-    <test name="Command line test" duration-ms="3" started-at="2017-11-17T23:39:42Z" finished-at="2017-11-17T23:39:42Z">
+    <test name="Command line test" duration-ms="12" started-at="2017-11-18T14:10:56Z" finished-at="2017-11-18T14:10:56Z">
     </test> <!-- Command line test -->
   </suite> <!-- com.bootcamp.Tester -->
 </testng-results>

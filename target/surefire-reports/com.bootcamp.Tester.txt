@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: com.bootcamp.Tester
 -------------------------------------------------------------------------------
-Tests run: 0, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.583 sec
+Tests run: 0, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 2.905 sec

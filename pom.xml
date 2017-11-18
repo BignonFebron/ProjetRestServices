@@ -14,24 +14,12 @@
       <version>3.8.1</version>
       <scope>test</scope>
     </dependency>
-      <dependency>
-           <groupId>com.sun.jersey</groupId>
-           <artifactId>jersey-json</artifactId>
-           <version>1.8</version>
-       </dependency>
-      
     <dependency>
-      <groupId>com.sun.jersey</groupId>
-      <artifactId>jersey-server</artifactId>
-      <version>1.8</version>
-    </dependency> 
-    
-     <dependency>
-           <groupId>com.bootcamp</groupId>
-           <artifactId>bootcampCRUD</artifactId>
-           <version>1.2</version>
-           <type>jar</type>
-     </dependency>
+            <groupId>com.bootcamp</groupId>
+            <artifactId>bootcampCRUD</artifactId>
+            <version>1.2-SNAPSHOT</version>
+            <type>jar</type>
+    </dependency>
     <!-- https://mvnrepository.com/artifact/org.testng/testng -->
     <dependency>
       <groupId>org.testng</groupId>
@@ -41,18 +29,48 @@
     </dependency>
 
     <!-- https://mvnrepository.com/artifact/javax.ws.rs/javax.ws.rs-api -->
-        <dependency>
-            <groupId>javax.ws.rs</groupId>
-            <artifactId>javax.ws.rs-api</artifactId>
-            <version>2.0.1</version>
-            <type>jar</type>
+
+       <dependency>
+           <groupId>javax.ws.rs</groupId>
+           <artifactId>javax.ws.rs-api</artifactId>
+           <version>2.1</version>
+           <type>jar</type>
+       </dependency>
+       
+       <dependency>
+           <groupId>org.glassfish.jersey.containers</groupId>
+           <artifactId>jersey-container-jetty-servlet</artifactId>
+           <version>2.26</version>
+       </dependency>
+       
+       <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>2.8.6</version>
         </dependency>
-    <dependency>
-      <groupId>org.apache.httpcomponents</groupId>
-      <artifactId>httpcore</artifactId>
-      <version>4.4.4</version>
-      <type>jar</type>
-    </dependency>
+
+       <!--//la version superieure de galssfish jersey 2.26-b06 ne marche pas et aurait necessite d'ajouter ce qui suit-->
+       <dependency>
+           <groupId>org.glassfish.jersey.inject</groupId>
+           <artifactId>jersey-hk2</artifactId>
+           <version>2.26</version>
+       </dependency>
+       <dependency>
+           <groupId>io.swagger</groupId>
+           <artifactId>swagger-jaxrs</artifactId>
+           <version>1.5.3</version>
+       </dependency>
+       <dependency>
+           <groupId>org.slf4j</groupId>
+           <artifactId>slf4j-api</artifactId>
+           <version>${slf4j-version}</version>
+       </dependency>
+
+       <dependency>
+           <groupId>org.slf4j</groupId>
+           <artifactId>slf4j-log4j12</artifactId>
+           <version>${slf4j-version}</version>
+       </dependency>
     <dependency>
       <groupId>org.apache.httpcomponents</groupId>
       <artifactId>httpclient</artifactId>
@@ -62,25 +80,67 @@
   </dependencies>
   <build>
     <finalName>ServicesRestProjet</finalName>
-   <plugins>
+    <plugins>
+
             <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.5.1</version>
                 <configuration>
                     <source>1.8</source>
                     <target>1.8</target>
+                    <failOnMissingWebXml>false</failOnMissingWebXml>
                 </configuration>
             </plugin>
-            
+
             <plugin>
-                    <groupId>org.eclipse.jetty</groupId>
-                    <artifactId>jetty-maven-plugin</artifactId>
-                    <version>${jettyVersion}</version>
+                <groupId>org.eclipse.jetty</groupId>
+                <artifactId>jetty-maven-plugin</artifactId>
+                <version>9.4.7.v20170914</version>
             </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+
+                <artifactId>exec-maven-plugin</artifactId>
+
+                <version>1.6.0</version>
+
+                <executions>
+
+                    <execution>
+
+                        <goals>
+
+                            <goal>java</goal>
+
+                        </goals>
+
+                    </execution>
+
+                </executions>
+
+                <configuration>
+
+                    <mainClass>com.bootcamp.rest.ServerClass</mainClass>
+
+                    <arguments>
+
+                        <argument>foo</argument>
+
+                        <argument>bar</argument>
+
+                    </arguments>
+
+                </configuration>
+
+            </plugin>
+
         </plugins>
   </build>
     <properties>
        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
        <jettyVersion>9.2.6.v20141205</jettyVersion>
+       <slf4j-version>1.7.12</slf4j-version>
    </properties>
     <repositories>
     <repository>

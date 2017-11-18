@@ -1,15 +1,17 @@
 
 package com.bootcamp.rest.controllers;
 
-import com.bootcamp.rest.Designs.Critere;
 import com.bootcamp.entities.Impact;
 import com.bootcamp.entities.Projet;
 import com.bootcamp.jpa.ProjetRepository;
+import com.bootcamp.rest.Designs.Critere;
 import com.bootcamp.rest.exception.NotCreateException;
 import com.bootcamp.rest.exception.ReturnMsgResponse;
 import com.bootcamp.rest.exception.SuccessMessage;
 import com.bootcamp.rest.exception.UnknownException;
 import com.bootcamp.service.crud.ProjetCRUD;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import java.beans.IntrospectionException;
 import java.beans.Introspector;
 import java.beans.PropertyDescriptor;
@@ -39,13 +41,12 @@ import javax.ws.rs.GET;
  *
  * @author Bignon
  */
-@Path("projet")
+@Path("/projet")
+@Api(value = "projets", description = "web service on projets")
 public class ProjetRestController {
     
-   ProjetRepository pr = new ProjetRepository("databasePU");
-        
-    List<Projet> liste = new ArrayList<Projet>();
-        
+   ProjetRepository pr = new ProjetRepository("databasePU");       
+    List<Projet> liste = new ArrayList<Projet>();      
     Response resp;
     
     Field[] fieldsProjet = returnProperties(Projet.class);
@@ -55,6 +56,7 @@ public class ProjetRestController {
     @POST
     @Consumes(MediaType.APPLICATION_OCTET_STREAM)
    // @Produces("application/json")
+    @ApiOperation(value = "list of projects with criteria")
     @Path("/all")
     public Response getAllProjets(Critere c) { 
        
@@ -75,7 +77,7 @@ public class ProjetRestController {
             int limit = c.getPagination().getLimit();
             
                 try {
-                liste = pr.findByCriterias(attr, ordre, offset, limit);
+                liste = ProjetCRUD.findByCriterias(attr, ordre, offset, limit);
                 return Response.status(200).entity(liste).build();
             } catch (Exception e) {
                 resp=UnknownException.unknownException(e);
@@ -146,7 +148,7 @@ public class ProjetRestController {
     @Path("/delete/{id}")
     public Response delete(@PathParam("id") int valeur) throws SQLException {                  
             try {
-                Projet projet = pr.findById(valeur);
+                Projet projet = ProjetCRUD.findById(valeur);
                 ProjetCRUD.delete(projet);
                 resp=SuccessMessage.message("Le projet d'id "+valeur+" a bien ete supprime");
             } catch (Exception e) {
@@ -165,7 +167,7 @@ public class ProjetRestController {
             SuccessMessage.message("\n Verification du token avec succes !");
             try {   
         String[] rempli = fields.split(",");
-        Projet proj = pr.findById(id);
+        Projet proj = ProjetCRUD.findById(id);
         
          Map<String, Object> responseMap = filtre(rempli,proj);
          return Response.status(200).entity(responseMap).build();
@@ -185,7 +187,7 @@ public class ProjetRestController {
         @Produces("application/json")
         public Response searchInProjet(@QueryParam("attrib") String attr, @QueryParam("value") String value) throws IntrospectionException, SQLException {
             if(singleCheckAttribute(attr)){               
-                liste = pr.search(attr, value);
+                liste = ProjetCRUD.search(attr, value);
             return Response.status(200).entity(liste).build();
              }else
             return Response.status(200).entity("Probleme lors de la recherche!!").build();
