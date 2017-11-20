@@ -120,17 +120,11 @@
                 </executions>
 
                 <configuration>
-
-                    <mainClass>com.bootcamp.rest.ServerClass</mainClass>
-
+                    <mainClass>com.bootcamp.rest.Application.ServerClass</mainClass>
                     <arguments>
-
                         <argument>foo</argument>
-
                         <argument>bar</argument>
-
                     </arguments>
-
                 </configuration>
 
             </plugin>
